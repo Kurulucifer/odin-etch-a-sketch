@@ -18,10 +18,13 @@ EDIT: Step 3 is flawed. Change to:
 3) apply the resizing operation regardless
 */
 
-let boxesPerSide = 10;
+let boxesPerSide = 24;
 
 let canvasSize = 400;
 let boxSize = 100;
+
+const container = document.querySelector(".canvas");
+resizeCanvas(container, boxesPerSide);
 
 function resizeCanvas(canvas, boxNumber) {
     boxSize = Math.floor(canvasSize / boxNumber);
@@ -31,9 +34,6 @@ function resizeCanvas(canvas, boxNumber) {
          width: ${canvasSize}px`)
     fillCanvas(canvas, boxNumber);
 }
-
-const container = document.querySelector(".canvas");
-resizeCanvas(container, boxesPerSide);
 
 function fillCanvas(canvas, boxNumber) {
     for (let i = 0; i < boxNumber ** 2; i++) {
@@ -46,3 +46,21 @@ function fillCanvas(canvas, boxNumber) {
     }
 }
 
+container.addEventListener("mouseover", (e) => {
+    let box = e.target;
+    if (box.className === "box") {
+        box.classList.replace("box", "box-filled");
+    }
+})
+
+/*
+Goal: hover effects over each square so that each div
+may change color as the mouse flies by
+
+1) add an event listener to each box individually 
+on mouseover (specifically mouseenter) events
+2) change the color of each box as the event is triggered
+
+Instead of adding listeners to each box, adding one listener
+to each container should work, right?
+*/
