@@ -1,0 +1,21 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.canvas {
+    display: flex;
+    flex-flow: row wrap;
+    background-color: slategray;
+}
+
+.box {
+    background-color: azure;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
