@@ -18,13 +18,12 @@ EDIT: Step 3 is flawed. Change to:
 3) apply the resizing operation regardless
 */
 
-let boxesPerSide = 24;
+const hardLimit = 100;
 
 let canvasSize = 400;
 let boxSize = 100;
 
 const container = document.querySelector(".canvas");
-resizeCanvas(container, boxesPerSide);
 
 function resizeCanvas(canvas, boxNumber) {
     boxSize = Math.floor(canvasSize / boxNumber);
@@ -53,6 +52,27 @@ container.addEventListener("mouseover", (e) => {
     }
 })
 
+function promptSize() {
+    let userInput = +prompt("Number of boxes per side?");
+    if (isNaN(userInput)) {
+        alert("Please enter a number!");
+        return;
+    }
+    else if (userInput < 1) {
+        alert("How will you draw with no boxes?!");
+        return;
+    }
+    else if (userInput > hardLimit) {
+        alert("Too many! I don't want you to crash!");
+        return;
+    }
+    else {
+        resizeCanvas(container, userInput);
+    }
+}
+
+promptSize();
+
 /*
 Goal: hover effects over each square so that each div
 may change color as the mouse flies by
@@ -62,5 +82,5 @@ on mouseover (specifically mouseenter) events
 2) change the color of each box as the event is triggered
 
 Instead of adding listeners to each box, adding one listener
-to each container should work, right?
+to the entire container should work, right?
 */
