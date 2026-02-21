@@ -2,12 +2,15 @@ console.log("Hey there!");
 
 
 const hardLimit = 100;
-
 let canvasSize = 400;
 let boxSize = 100;
 
-const container = document.querySelector(".canvas");
 const body = document.querySelector("body");
+
+const resizeButton = document.querySelector("button.resize");
+resizeButton.addEventListener("click", () => {
+    promptSize(document.querySelector(".canvas"));
+});
 
 function resizeCanvas(oldCanvas, boxNumber) {
     canvas = oldCanvas.cloneNode(false);
@@ -43,7 +46,7 @@ function activateCanvas(canvas) {
     body.appendChild(canvas);
 }
 
-function promptSize() {
+function promptSize(oldCanvas) {
     let userInput = +prompt("Number of boxes per side?");
     if (isNaN(userInput)) {
         alert("Please enter a number!");
@@ -58,15 +61,17 @@ function promptSize() {
         return false;
     }
     else {
-        resizeCanvas(container, userInput);
+        resizeCanvas(oldCanvas, userInput);
         return true;
     }
 }
 
+
 function startCanvas() {
-    let reprompt = promptSize()
+    const container = document.querySelector(".canvas");
+    let reprompt = promptSize(container)
     while (!reprompt) {
-        reprompt = promptSize();
+        reprompt = promptSize(container);
     }
 }
 
