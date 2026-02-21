@@ -1,31 +1,18 @@
 console.log("Hey there!");
 
 
-/*
-Goal: resize container and boxes so that they
-can contain the dimensions the user provides
-without having the container undergo drastic resizing
-
-1) decide a base canvas size e.g. 800px (square)
-2) ask user for an number of boxes per side e.g. 4
-3) if canvas / box number != 0 (not a perfect fit)
-    floor canvas/number = box size
-    multiply number * box size -> new canvas size
-    set canvas size to new canvas size
-4) deploy container and boxes
-
-EDIT: Step 3 is flawed. Change to:
-3) apply the resizing operation regardless
-*/
-
 const hardLimit = 100;
 
 let canvasSize = 400;
 let boxSize = 100;
 
 const container = document.querySelector(".canvas");
+const body = document.querySelector("body");
 
-function resizeCanvas(canvas, boxNumber) {
+function resizeCanvas(oldCanvas, boxNumber) {
+    canvas = oldCanvas.cloneNode(false);
+    oldCanvas.remove();
+
     boxSize = Math.floor(canvasSize / boxNumber);
     canvasSize = boxNumber * boxSize;
     canvas.setAttribute("style", 
@@ -43,14 +30,18 @@ function fillCanvas(canvas, boxNumber) {
              width: ${boxSize}px`);
         canvas.appendChild(box);
     }
+    activateCanvas(canvas);
 }
 
-container.addEventListener("mouseover", (e) => {
-    let box = e.target;
-    if (box.className === "box") {
-        box.classList.replace("box", "box-filled");
-    }
-})
+function activateCanvas(canvas) {
+    canvas.addEventListener("mouseover", (e) => {
+        let box = e.target;
+        if (box.className === "box") {
+            box.classList.replace("box", "box-filled");
+        }
+    })
+    body.appendChild(canvas);
+}
 
 function promptSize() {
     let userInput = +prompt("Number of boxes per side?");
@@ -81,6 +72,24 @@ function startCanvas() {
 
 startCanvas();
 
+
+/*
+Goal: resize container and boxes so that they
+can contain the dimensions the user provides
+without having the container undergo drastic resizing
+
+1) decide a base canvas size e.g. 800px (square)
+2) ask user for an number of boxes per side e.g. 4
+3) if canvas / box number != 0 (not a perfect fit)
+    floor canvas/number = box size
+    multiply number * box size -> new canvas size
+    set canvas size to new canvas size
+4) deploy container and boxes
+
+EDIT: Step 3 is flawed. Change to:
+3) apply the resizing operation regardless
+*/
+
 /*
 Goal: hover effects over each square so that each div
 may change color as the mouse flies by
@@ -91,4 +100,12 @@ on mouseover (specifically mouseenter) events
 
 Instead of adding listeners to each box, adding one listener
 to the entire container should work, right?
+*/
+
+/*
+Goal: refresh canvas
+
+1) clone the old canvas without children
+2) delete the old canvas
+3) add listener to new canvas
 */
