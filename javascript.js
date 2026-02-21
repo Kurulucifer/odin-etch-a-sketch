@@ -56,22 +56,30 @@ function promptSize() {
     let userInput = +prompt("Number of boxes per side?");
     if (isNaN(userInput)) {
         alert("Please enter a number!");
-        return;
+        return false;
     }
     else if (userInput < 1) {
         alert("How will you draw with no boxes?!");
-        return;
+        return false;
     }
     else if (userInput > hardLimit) {
         alert("Too many! I don't want you to crash!");
-        return;
+        return false;
     }
     else {
         resizeCanvas(container, userInput);
+        return true;
     }
 }
 
-promptSize();
+function startCanvas() {
+    let reprompt = promptSize()
+    while (!reprompt) {
+        reprompt = promptSize();
+    }
+}
+
+startCanvas();
 
 /*
 Goal: hover effects over each square so that each div
