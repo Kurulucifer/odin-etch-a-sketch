@@ -16,8 +16,6 @@ body {
     display: flex;
     flex-flow: row wrap;
     background-color: slategray;
-
-    border: 2px solid #ffffff00;
 }
 
 .box {

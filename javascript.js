@@ -2,7 +2,7 @@ console.log("Hey there!");
 
 
 const hardLimit = 100;
-let canvasSize = 400;
+const maxCanvasSize = 400;
 let boxSize = 100;
 
 const body = document.querySelector("body");
@@ -16,14 +16,11 @@ function resizeCanvas(oldCanvas, boxNumber) {
     canvas = oldCanvas.cloneNode(false);
     oldCanvas.remove();
 
-    boxSize = Math.floor(canvasSize / boxNumber);
-    let oldCanvasSize = canvasSize;
+    boxSize = maxCanvasSize / boxNumber;
     canvasSize = boxNumber * boxSize;
-    let borderSize = (oldCanvasSize - canvasSize) / 2;
     canvas.setAttribute("style", 
         `height: ${canvasSize}px; 
-         width: ${canvasSize}px;
-         border: ${borderSize}px solid rgba(255, 255, 255, 0)`);
+         width: ${canvasSize}px`);
     fillCanvas(canvas, boxNumber);
 }
 
