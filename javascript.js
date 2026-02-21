@@ -46,8 +46,10 @@ function activateCanvas(canvas) {
                      ${Math.random() * 255})`)
         }
         else if (box.className.includes("box")) {
+            box.style.removeProperty("background-color");
             box.classList.replace("box", "box-filled");
         }
+        box.style.opacity = +box.style.opacity + 0.1;
     })
     body.appendChild(canvas);
 }
