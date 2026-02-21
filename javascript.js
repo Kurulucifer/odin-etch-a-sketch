@@ -17,10 +17,13 @@ function resizeCanvas(oldCanvas, boxNumber) {
     oldCanvas.remove();
 
     boxSize = Math.floor(canvasSize / boxNumber);
+    let oldCanvasSize = canvasSize;
     canvasSize = boxNumber * boxSize;
+    let borderSize = (oldCanvasSize - canvasSize) / 2;
     canvas.setAttribute("style", 
         `height: ${canvasSize}px; 
-         width: ${canvasSize}px`)
+         width: ${canvasSize}px;
+         border: ${borderSize}px solid rgba(255, 255, 255, 0)`);
     fillCanvas(canvas, boxNumber);
 }
 
