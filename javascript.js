@@ -39,7 +39,13 @@ function fillCanvas(canvas, boxNumber) {
 function activateCanvas(canvas) {
     canvas.addEventListener("mouseover", (e) => {
         let box = e.target;
-        if (box.className === "box") {
+        if (box.className.includes("box") && e.ctrlKey) {
+            box.style.setProperty('background-color', 
+                `rgb(${Math.random() * 255}, 
+                     ${Math.random() * 255}, 
+                     ${Math.random() * 255})`)
+        }
+        else if (box.className.includes("box")) {
             box.classList.replace("box", "box-filled");
         }
     })
